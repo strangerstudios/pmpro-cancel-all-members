@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: PMPro Cancel All Members
+Plugin Name: Paid Memberships Pro - Cancel All Members Add On
 Plugin URI: http://www.paidmembershipspro.com/wp/pmpro-cancel-all-members/
 Description: Cancel all PMPro Members
 Version: .1
@@ -43,3 +43,18 @@ function pmprocam_init()
 	}
 }
 add_action('init', 'pmprocam_init');
+
+/*
+Function to add links to the plugin row meta
+*/
+function pmprocam_plugin_row_meta($links, $file) {
+	if(strpos($file, 'pmpro-cancel-all-members.php') !== false)
+	{
+		$new_links = array(
+			'<a href="' . esc_url('http://paidmembershipspro.com/support/') . '" title="' . esc_attr( __( 'Visit Customer Support Forum', 'pmpro' ) ) . '">' . __( 'Support', 'pmpro' ) . '</a>',
+		);
+		$links = array_merge($links, $new_links);
+	}
+	return $links;
+}
+add_filter('plugin_row_meta', 'pmprocam_plugin_row_meta', 10, 2);
